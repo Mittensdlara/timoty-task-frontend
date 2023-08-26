@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import PostList from "./PostList";
 import Post from "./Post";
-import Form from "./Form";
+import FormModal from "./FormModal";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Header from "./Header";
@@ -27,7 +27,8 @@ function App() {
             <Route path="/post/:id" element={<Post newPosts={newPosts} />} />
           </Routes>
           <br />
-          <Form onAddPost={handleAddPost} />
+          <FormModal onAddPost={handleAddPost} />
+          <br />
           <Footer />
         </div>
       </div>

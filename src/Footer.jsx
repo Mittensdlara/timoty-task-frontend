@@ -32,7 +32,7 @@ const Footer = () => {
     </div>
     <hr className="my-6 border-gray-800" />
     <p className="text-center text-gray-400">
-      Designed with &#x2764; by Del | Open-source on <a href="https://github.com/your-github-repo" className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a>
+      Designed with &#x2764; by Del | Open-source on <a href="https://github.com/Mittensdlara/timoty-task-frontend" className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">GitHub</a>
     </p>
   </div>
 </footer>
