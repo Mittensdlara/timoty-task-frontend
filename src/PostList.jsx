@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 const PostList = ({ newPosts }) => {
   const [posts, setPosts] = useState([]);
@@ -28,6 +28,16 @@ const PostList = ({ newPosts }) => {
 
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    // Combine fetched posts with new posts and sort by ID to display new posts first
+    const combinedPosts = [...newPosts, ...posts].sort((a, b) => b.id - a.id);
+    setPosts(combinedPosts);
+  }, [newPosts]);
+
+  const handleAddPost = (newPost) => {
+    setPosts([newPost, ...posts]);
+  };
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -69,24 +79,35 @@ const PostList = ({ newPosts }) => {
               />
             </div>
             <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-            <p className="text-gray-600">{post.body.substring(0, 100)}...</p>
+            <p className="text-gray-600">
+              {post.body ? post.body.substring(0, 100) : ""}...
+            </p>
           </Link>
         );
       })}
+
       <div className="pagination mt-4 flex justify-center">
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className="px-3 py-2 rounded bg-blue-500 text-white mr-2 w-20"
+          className={`px-3 py-2 rounded ${
+            currentPage === 1
+              ? "bg-gray-300 text-gray-500"
+              : "bg-blue-500 text-white"
+          } mr-2 w-20 flex items-center justify-center`}
         >
-          <ChevronLeftIcon className="w-6 h-6" />
+          Previous
         </button>
         <button
           onClick={nextPage}
           disabled={currentPage === Math.ceil(posts.length / postsPerPage)}
-          className="px-3 py-2 rounded bg-blue-500 text-white w-20"
+          className={`px-3 py-2 rounded ${
+            currentPage === Math.ceil(posts.length / postsPerPage)
+              ? "bg-gray-300 text-gray-500"
+              : "bg-blue-500 text-white"
+          } w-20 flex items-center justify-center`}
         >
-          <ChevronRightIcon className="w-6 h-6" />
+          Next
         </button>
       </div>
     </div>
